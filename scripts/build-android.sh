@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+set -e
+
+# ====================================================
+#   Building Hmanager Pro Android Application (APK)
+# ====================================================
+
+BUILD_TYPE="${1:-release}"
+if [ "$BUILD_TYPE" = "debug" ]; then
+  GRADLE_TASK="assembleArm64Debug"
+  APK_SUBDIR="debug"
+  APK_FILENAME="app-arm64-debug.apk"
+  DIST_APK_NAME="Hmanager-Pro-arm64-debug.apk"
+  MODE_LABEL="Debug"
+  CARGO_FLAG=""
+else
+  GRADLE_TASK="assembleArm64Release"
+  APK_SUBDIR="release"
+  APK_FILENAME="app-arm64-release.apk"
+  DIST_APK_NAME="Hmanager-Pro-arm64-release.apk"
+  MODE_LABEL="Release (Production)"
+  CARGO_FLAG="--release"
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+cd "$PROJECT_ROOT"
+
+echo "Building Hmanager Pro Android ($MODE_LABEL)..."
+
+# Toolchain / NDK Linker Auto-detection for Cargo
+if [ -z "$CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER" ]; then
+  if [ -z "$NDK_HOME" ] && [ -n "$ANDROID_NDK_HOME" ]; then
+    NDK_HOME="$ANDROID_NDK_HOME"
+  fi
+  if [ -z "$NDK_HOME" ] && [ -n "$ANDROID_HOME" ] && [ -d "$ANDROID_HOME/ndk" ]; then
+    NDK_HOME="$(find "$ANDROID_HOME/ndk" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort -V | tail -n 1)"
+  fi
+  if [ -n "$NDK_HOME" ]; then
+    HOST_TAG="linux-x86_64"
+    if [ "$(uname)" = "Darwin" ]; then
+      HOST_TAG="darwin-x86_64"
+    fi
+    LLVM_BIN="$NDK_HOME/toolchains/llvm/prebuilt/$HOST_TAG/bin"
+    CLANG_BIN="$(find "$LLVM_BIN" -name "aarch64-linux-android*-clang" 2>/dev/null | sort -V | tail -n 1)"
+    if [ -n "$CLANG_BIN" ]; then
+      export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="$CLANG_BIN"
+      export CC_aarch64_linux_android="$CLANG_BIN"
+      export AR_aarch64_linux_android="$LLVM_BIN/llvm-ar"
+      export PATH="$LLVM_BIN:$PATH"
+    fi
+  fi
+fi
+
+# 1. Build Tailwind CSS
+echo "[1/4] Building Tailwind CSS..."
+npm run build:css
+
+# 2. Compile Rust Core
+echo "[2/4] Compiling Rust Android Native Core via Cargo..."
+cd "$PROJECT_ROOT/src-tauri"
+cargo build --target aarch64-linux-android $CARGO_FLAG --features tauri/custom-protocol
+cd "$PROJECT_ROOT"
+
+# 3. Assemble Android APK via Gradle
+echo "[3/4] Assembling $MODE_LABEL Android APK via Gradle..."
+cd "$PROJECT_ROOT/src-tauri/gen/android"
+chmod +x gradlew
+./gradlew "$GRADLE_TASK" --no-daemon
+cd "$PROJECT_ROOT"
+
+# 4. Export APK
+echo "[4/4] Exporting APK to centralized dist folder..."
+mkdir -p dist/android
+SOURCE_APK="src-tauri/gen/android/app/build/outputs/apk/arm64/$APK_SUBDIR/$APK_FILENAME"
+if [ -f "$SOURCE_APK" ]; then
+  cp "$SOURCE_APK" "dist/android/$DIST_APK_NAME"
+  cp "$SOURCE_APK" "dist/$DIST_APK_NAME"
+fi
+
+node scripts/export-builds.js
+
+echo "Android build complete: dist/$DIST_APK_NAME"

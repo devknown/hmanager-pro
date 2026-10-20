@@ -1,0 +1,63 @@
+{
+  "name": "hmanager-pro",
+  "version": "1.0.0",
+  "description": "Huawei LTE/4G/5G Router Controller and Band Locker",
+  "main": "server.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --watch",
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "desktop": "scripts\\start-desktop.bat",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "tauri:android:init": "tauri android init",
+    "tauri:android:dev": "tauri android dev",
+    "build": "npm run build:desktop",
+    "build:desktop": "node scripts/build.js desktop release",
+    "build:windows": "node scripts/build.js windows release",
+    "build:android": "node scripts/build.js android release",
+    "build:android:release": "node scripts/build.js android release",
+    "build:android:debug": "node scripts/build.js android debug",
+    "build:linux": "node scripts/build.js linux release",
+    "build:macos": "node scripts/build.js macos release",
+    "build:all": "node scripts/build.js all release",
+    "export": "node scripts/export-builds.js",
+    "export:release": "node scripts/export-builds.js --release-only",
+    "release:prepare": "node scripts/prepare-release.js dist",
+    "android:build": "npm run build:android",
+    "android:build:release": "npm run build:android:release",
+    "android:build:debug": "npm run build:android:debug"
+  },
+  "keywords": [
+    "huawei",
+    "router",
+    "bandlock",
+    "hilink",
+    "flybox",
+    "lte",
+    "4g",
+    "5g",
+    "carrier-aggregation",
+    "tauri",
+    "cross-platform"
+  ],
+  "author": "Devknown",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hmanager-pro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hmanager-pro/issues"
+  },
+  "homepage": "https://github.com/hmanager-pro#readme",
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.3",
+    "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "@tauri-apps/plugin-opener": "^2.7.2"
+  }
+}

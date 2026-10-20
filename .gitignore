@@ -1,0 +1,80 @@
+# ==============================================================================
+# Git Ignore Configuration for Hmanager Pro
+# ==============================================================================
+
+# Node.js & Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Unified Distribution & Build Output
+dist/
+build/
+out/
+bin/
+
+# Direct Binary / Package Artifacts
+*.apk
+*.idsig
+*.aab
+*.exe
+*.msi
+*.deb
+*.rpm
+*.AppImage
+*.dmg
+*.pkg
+*.so
+*.dll
+*.dylib
+
+# Rust & Cargo Artifacts
+src-tauri/target/
+src-tauri/gen/schemas/
+src-tauri/*.rcgu.o
+*.rs.bk
+
+# Machine-specific Toolchain & Local SDK Overrides
+src-tauri/winsdk/
+src-tauri/.cargo/config.toml
+!src-tauri/.cargo/config.toml.example
+
+# Android & Gradle Build Artifacts
+src-tauri/gen/android/.gradle/
+src-tauri/gen/android/.kotlin/
+src-tauri/gen/android/build/
+src-tauri/gen/android/app/build/
+src-tauri/gen/android/buildSrc/build/
+src-tauri/gen/android/buildSrc/.gradle/
+src-tauri/gen/android/.externalNativeBuild/
+src-tauri/gen/android/.cxx/
+src-tauri/gen/android/.tauri/
+src-tauri/gen/android/captures/
+*.iml
+
+# Sensitive Credentials, Keystores & Local Properties
+*.keystore
+*.jks
+release.keystore
+key.properties
+!key.properties.example
+!src-tauri/gen/android/key.properties.example
+local.properties
+.env
+.env.local
+.env.*.local
+
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

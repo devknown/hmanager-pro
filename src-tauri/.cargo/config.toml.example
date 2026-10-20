@@ -1,0 +1,28 @@
+# ==============================================================================
+# Cargo Local Configuration Template (Optional)
+# ==============================================================================
+#
+# Standard environments (GitHub Actions, Linux, macOS, and standard Windows with
+# MSVC C++ Build Tools installed via Visual Studio Installer) DO NOT need this file.
+# Cargo will automatically locate the system compiler, SDK, and linkers.
+#
+# If you are in a custom or portable Windows environment without standard registry keys,
+# copy this file to `.cargo/config.toml` and adjust your toolchain paths accordingly.
+#
+# NOTE: .cargo/config.toml is ignored by git to protect your local paths.
+# ==============================================================================
+
+# [target.x86_64-pc-windows-msvc]
+# linker = "rust-lld"
+# rustflags = [
+#   "-L", "native=C:/path/to/winsdk/um/x64",
+#   "-L", "native=C:/path/to/winsdk/ucrt/x64",
+#   "-L", "native=C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/VC/Tools/MSVC/14.29.30133/lib/x64"
+# ]
+
+# [env]
+# INCLUDE = "C:/path/to/winsdk/Include/10.0.19041.0/um;C:/path/to/winsdk/Include/10.0.19041.0/ucrt"
+# LIB = "C:/path/to/winsdk/um/x64;C:/path/to/winsdk/ucrt/x64"
+
+# [target.aarch64-linux-android]
+# linker = "C:/path/to/Android/Sdk/ndk/toolchains/llvm/prebuilt/windows-x86_64/bin/aarch64-linux-android34-clang.cmd"

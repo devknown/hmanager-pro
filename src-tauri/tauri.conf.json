@@ -1,0 +1,44 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Hmanager Pro",
+  "version": "1.0.0",
+  "identifier": "com.hmanager.desktop",
+  "build": {
+    "beforeBuildCommand": "npm run build:css",
+    "frontendDist": "../public",
+    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "node server.js"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "Hmanager Pro",
+        "width": 820,
+        "height": 560,
+        "minWidth": 820,
+        "minHeight": 560,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true,
+        "theme": "Light",
+        "decorations": false,
+        "shadow": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

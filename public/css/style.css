@@ -1,0 +1,459 @@
+/*
+ * Hmanager Pro Clean Light UI Stylesheet
+ * Native desktop application feel: 100% viewport, no nested window frames,
+ * pristine white surfaces, mint wave canvas, and authentic Clean controls.
+ */
+
+:root {
+  --gw-bg: #f8fafc;
+  --gw-white: #ffffff;
+  --gw-border: #e2e8f0;
+  --gw-border-subtle: #f1f5f9;
+  
+  --gw-yellow: #3b82f6;
+  --gw-pink: #eb79ba;
+  --gw-blue-active: #2563eb;
+  --gw-blue-pill: #e8f1fd;
+  --gw-green: #10b981;
+  --gw-green-pill: #dcfce7;
+  --gw-green-text: #15803d;
+  --gw-red-pill: #fee2e2;
+  --gw-red-text: #b91c1c;
+
+  --gw-text-primary: #1e293b;
+  --gw-text-secondary: #64748b;
+  --gw-text-muted: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  color: var(--gw-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* App Custom Frame / Titlebar (Frameless Native Desktop Bar) */
+.hmanager-frame {
+  width: 100%;
+  height: 44px;
+  min-height: 44px;
+  background: #ffffff;
+  border-bottom: 1px solid #e8f1fd;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 100;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  padding: 0;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Ensure interactive elements receive mouse events and are not dragged */
+.hmanager-frame button,
+.hmanager-frame a,
+.hmanager-frame input,
+.hmanager-frame nav,
+.hmanager-frame .gw-nav-tab,
+.hmanager-frame .no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Frameless Window Controls */
+.window-controls {
+  align-items: center;
+  height: 100%;
+  -webkit-app-region: no-drag;
+}
+
+/* ======================================================== */
+/* ANDROID SPECIFIC HEADER LAYOUT (Android Only)            */
+/* ======================================================== */
+html.is-android .hmanager-frame,
+body.is-android .hmanager-frame {
+  -webkit-app-region: no-drag;
+}
+
+/* 1. Remove window frame controls completely on Android */
+html.is-android #frameWindowControls,
+body.is-android #frameWindowControls,
+html.is-android .window-controls,
+body.is-android .window-controls {
+  display: none !important;
+}
+
+/* 2. Bring menu (navigation tabs & router actions) from center to far right on Android */
+html.is-android #frameCenterGroup,
+body.is-android #frameCenterGroup {
+  left: auto !important;
+  right: 12px !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  transform: none !important;
+  height: 100% !important;
+}
+
+.window-control-btn {
+  width: 44px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  outline: none;
+  padding: 0;
+  -webkit-app-region: no-drag;
+}
+
+.window-control-btn:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.window-control-btn:active {
+  background-color: #e2e8f0;
+}
+
+/* Close Button (Authentic Red Hover) */
+.window-control-btn.close:hover {
+  background-color: #e81123 !important;
+  color: #ffffff !important;
+}
+
+.window-control-btn.close:active {
+  background-color: #bf0f1d !important;
+  color: #ffffff !important;
+}
+
+.hmanager-header {
+  width: 100%;
+}
+
+/* Clean Navigation Tabs (Overview & Connectivity) */
+.gw-nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  border-radius: 10px;
+  transition: all 0.16s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.gw-nav-tab:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.gw-nav-tab.active {
+  background: #e8f1fd;
+  color: #2563eb;
+  border-color: #dbeafe;
+}
+
+.gw-nav-tab.active svg {
+  color: #2563eb;
+}
+
+/* Pill Buttons (Filter, Timeframe, Actions) */
+.gw-pill-btn {
+  background: #ffffff;
+  padding: 5px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #334155;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gw-pill-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Segmented Control [ ~ | ||| ] */
+.gw-segmented-control {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  border-radius: 9999px;
+  display: inline-flex;
+  padding: 2px;
+}
+
+.gw-segment-btn {
+  padding: 4px 11px;
+  border-radius: 9999px;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.gw-segment-btn:hover {
+  color: #0f172a;
+}
+
+.gw-segment-btn.active {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+/* Clean Toggle Switch [ ON ] */
+.gw-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 54px;
+  height: 26px;
+  background-color: #10b981;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  user-select: none;
+  padding: 2px;
+}
+
+.gw-switch.off {
+  background-color: #cbd5e1;
+}
+
+.gw-switch-thumb {
+  width: 22px;
+  height: 22px;
+  background-color: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+  transform: translateX(28px);
+}
+
+.gw-switch.off .gw-switch-thumb {
+  transform: translateX(0);
+}
+
+.gw-switch-label {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.gw-switch:not(.off) .gw-switch-label {
+  left: 7px;
+}
+
+.gw-switch.off .gw-switch-label {
+  right: 7px;
+  color: #64748b;
+}
+
+/* Status Badges (Allowed / Blocked Arrow Indicators) */
+.pill-allowed {
+  color: #16a34a;
+  background: #f0fdf4;
+  padding: 2px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  white-space: nowrap;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.pill-blocked {
+  color: #ef4444;
+  background: #fef2f2;
+  padding: 2px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  white-space: nowrap;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+/* Interactive Hover Card */
+.gw-hover-card {
+  position: absolute;
+  width: 280px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  z-index: 100;
+  padding: 12px 14px;
+  font-size: 11px;
+  pointer-events: none;
+  animation: fadeIn 0.12s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stacked Yellow & Pink Horizontal Bar (WAN & LAN) */
+.gw-dual-bar {
+  display: flex;
+  height: 6px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  overflow: hidden;
+  width: 120px;
+}
+
+.gw-bar-yellow {
+  background-color: var(--gw-yellow);
+  height: 100%;
+}
+
+.gw-bar-pink {
+  background-color: var(--gw-pink);
+  height: 100%;
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-dialog {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 440px;
+  overflow: hidden;
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.gw-toast {
+  pointer-events: auto;
+  min-width: 260px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: #1e293b;
+}
+
+.gw-toast.toast-success { border-left: 4px solid #10b981; }
+.gw-toast.toast-info { border-left: 4px solid #3b82f6; }
+.gw-toast.toast-warning { border-left: 4px solid #f59e0b; }
+.gw-toast.toast-danger { border-left: 4px solid #ef4444; }
+
+/* ======================================================== */
+/* Connectivity Layout (Clean Grid Matching Screenshot)     */
+/* ======================================================== */
+.gw-mode-card {
+  border: 1.5px solid #e2e8f0;
+  background: #ffffff;
+  color: #334155;
+  transition: all 0.16s ease;
+  user-select: none;
+}
+.gw-mode-card:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+.gw-mode-card.active {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+.gw-mode-card.active svg {
+  color: #ffffff !important;
+}
+
+.gw-band-card {
+  color: #334155;
+  transition: all 0.16s ease;
+  user-select: none;
+  border: solid 1px transparent;
+}
+.gw-band-card:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+.gw-band-card.selected {
+  border: solid 1px #3b82f6 !important;
+  background: #eff6ff !important;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.12);
+}
+.gw-band-card.selected span:not(.pill-allowed):not(.pill-blocked) {
+  color: #1d4ed8 !important;
+  font-weight: 700;
+}
+.gw-band-card.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.gw-band-checkbox {
+  accent-color: #2563eb;
+  cursor: pointer;
+}

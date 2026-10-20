@@ -1,0 +1,37 @@
+# Set default behavior for all files
+* text=auto
+
+# Unix shell scripts must always have LF line endings
+*.sh text eol=lf
+gradlew text eol=lf
+
+# Windows batch files must always have CRLF line endings
+*.bat text eol=crlf
+*.cmd text eol=crlf
+gradlew.bat text eol=crlf
+
+# Source code files with LF
+*.js text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.rs text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.kts text eol=lf
+*.properties text eol=lf
+
+# Explicit binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.icns binary
+*.keystore binary
+*.jks binary
+*.jar binary
+*.so binary
+*.dll binary
+*.exe binary
+*.apk binary

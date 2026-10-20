@@ -1,0 +1,8 @@
+# Example Android Release Keystore Configuration
+# Copy this file to "key.properties" and customize with your real signing credentials.
+# NOTE: Never commit your actual key.properties or keystore files to public git repositories!
+
+storeFile=release.keystore
+storePassword=your_keystore_password
+keyAlias=your_key_alias
+keyPassword=your_key_password

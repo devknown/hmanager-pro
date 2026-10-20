@@ -1,0 +1,27 @@
+[package]
+name = "app"
+version = "1.0.0"
+description = "Hmanager Pro - Huawei 4G/5G Router Controller & Band Locker Desktop Core"
+authors = ["Hassan Azzi"]
+license = "MIT"
+repository = "https://github.com/hmanager-pro"
+homepage = "https://github.com/hmanager-pro"
+readme = "../README.md"
+edition = "2024"
+rust-version = "1.85"
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7.3", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2.12.4", features = [] }
+tauri-plugin-log = "2"
+ureq = { version = "2", default-features = false }
+tauri-plugin-opener = "2"
