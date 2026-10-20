@@ -1,3 +1,40 @@
 include ':app'
 
-apply from: 'tauri.settings.gradle'
+def tauriSettings = file('tauri.settings.gradle')
+if (tauriSettings.exists()) {
+    apply from: tauriSettings
+} else {
+    // Dynamic fallback: locate tauri-android directory from cargo registry
+    def cargoHome = System.getenv("CARGO_HOME") ?: "${System.getProperty("user.home")}/.cargo"
+    def registryDir = new File(cargoHome, "registry/src")
+    File tauriMobileDir = null
+
+    if (registryDir.exists()) {
+        def registryFolders = registryDir.listFiles()
+        if (registryFolders != null) {
+            for (def reg : registryFolders) {
+                if (reg.isDirectory()) {
+                    def candidates = reg.listFiles({ f -> f.isDirectory() && f.name.startsWith("tauri-") } as FileFilter)
+                    if (candidates != null && candidates.length > 0) {
+                        for (def c : candidates) {
+                            def androidDir = new File(c, "mobile/android")
+                            if (androidDir.exists()) {
+                                tauriMobileDir = androidDir
+                                break
+                            }
+                        }
+                    }
+                }
+                if (tauriMobileDir != null) break
+            }
+        }
+    }
+
+    if (tauriMobileDir != null) {
+        println("settings.gradle: dynamically resolved :tauri-android at ${tauriMobileDir.absolutePath}")
+        include ':tauri-android'
+        project(':tauri-android').projectDir = tauriMobileDir
+    } else {
+        throw new GradleException("Could not read script 'tauri.settings.gradle' and could not locate tauri-android in ${registryDir}")
+    }
+}

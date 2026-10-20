@@ -116,4 +116,11 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 }
 
-apply(from = file("tauri.build.gradle.kts"))
+val tauriBuildFile = file("tauri.build.gradle.kts")
+if (tauriBuildFile.exists()) {
+    apply(from = tauriBuildFile)
+} else {
+    dependencies {
+        add("implementation", project(":tauri-android"))
+    }
+}
