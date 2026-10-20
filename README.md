@@ -19,8 +19,13 @@
 **Hmanager Pro** is a modern controller for Huawei HiLink and Flybox 4G/5G LTE routers (tested on B310s-22). It empowers users to monitor real-time cellular signal metrics, choose and lock optimal carrier frequency bands, control carrier aggregation, and send router commands seamlessly.
 
 Help the project by donating:  **[Donate](https://ko-fi.com/w3simple/tip)**
-Windows:  **[Download .exe](https://github.com/devknown/hmanager-pro/releases/download/v1.0.0/Hmanager.Pro_1.0.0_x64-setup.exe)**
-Android:  **[Download .apk](https://github.com/devknown/hmanager-pro/releases/download/v1.0.0/Hmanager-Pro-arm64-release.apk)**
+
+1. **Windows App** **[Download .exe](https://github.com/devknown/hmanager-pro/releases/download/v1.0.0/Hmanager.Pro_1.0.0_x64-setup.exe)**
+2. **MacOS App** **[Download .dmg](https://github.com/devknown/hmanager-pro/releases/download/v1.0.0/Hmanager.Pro_1.0.0_universal.dmg)**
+3. **Android App** **[Download .apk](https://github.com/devknown/hmanager-pro/releases/download/v1.0.0/Hmanager-Pro-arm64-release.apk)**
+4. **Linux App** **[Download .deb](https://github.com/devknown/hmanager-pro/releases/download/v1.0.0/Hmanager.Pro_1.0.0_amd64.deb)** **[Download .AppImage](https://github.com/devknown/hmanager-pro/releases/download/v1.0.0/Hmanager-Hmanager.Pro_1.0.0_amd64.AppImage)**
+
+
 
 You can build it yourself:
 1. **Desktop App** (Windows `.exe` / `.msi`, Linux `.deb` / `.AppImage`, macOS `.dmg`).
