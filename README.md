@@ -4,13 +4,13 @@
 
 **A fast, intuitive, cross-platform Huawei LTE / 4G / 5G router controller and band locker.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)[![Tauri v2](https://img.shields.io/badge/Tauri-v2.0-24C8D5?logo=tauri&logoColor=white)](https://v2.tauri.app/)[![Platforms](https://img.shields.io/badge/Platforms-Windows%20%7C%20Android%20%7C%20Linux%20%7C%20macOS%20%7C%20Web-blueviolet)](https://github.com/hmanager-pro)[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)[![Rust](https://img.shields.io/badge/Rust-1.80+-DEA584?logo=rust&logoColor=white)](https://rustup.rs/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Tauri v2](https://img.shields.io/badge/Tauri-v2.0-24C8D5?logo=tauri&logoColor=white)](https://v2.tauri.app/) [![Platforms](https://img.shields.io/badge/Platforms-Windows%20%7C%20Android%20%7C%20Linux%20%7C%20macOS%20%7C%20Web-blueviolet)](https://github.com/hmanager-pro) [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)](https://nodejs.org/) [![Rust](https://img.shields.io/badge/Rust-1.80+-DEA584?logo=rust&logoColor=white)](https://rustup.rs/)
 
-[Donate](https://ko-fi.com/w3simple/tip)
-[Key Features](#-key-features)
-[Supported Routers](#-supported-routers)
-[Getting Started](#-getting-started)
-[Build from Source](#-building-from-source)
+[Donate](https://ko-fi.com/w3simple/tip) 
+[Key Features](#key-features) 
+[Supported Routers](#supported-routers) 
+[Getting Started](#getting-started) 
+[Build from Source](#building-from-source) 
 </div>
 
 ![Hmanager Pro Cover](https://raw.githubusercontent.com/devknown/hmanager-pro/master/hmanager.webp)
