@@ -19,9 +19,11 @@
 **Hmanager Pro** is a modern controller for Huawei HiLink and Flybox 4G/5G LTE routers (tested on B310s-22). It empowers users to monitor real-time cellular signal metrics, choose and lock optimal carrier frequency bands, control carrier aggregation, and send router commands seamlessly.
 
 Help the project by donating:  **[Donate](https://ko-fi.com/w3simple/tip)**
+Windows:  **[Download .exe](https://github.com/devknown/hmanager-pro/releases/download/v1.0.0/Hmanager.Pro_1.0.0_x64-setup.exe)**
+Android:  **[Download .apk](https://github.com/devknown/hmanager-pro/releases/download/v1.0.0/Hmanager-Pro-arm64-release.apk)**
 
-Available as:
-1. **Desktop App** (Windows `.exe` / `.msi`, Linux `.deb` / `.AppImage`, macOS `.dmg`) powered by **Tauri v2**.
+You can build it yourself:
+1. **Desktop App** (Windows `.exe` / `.msi`, Linux `.deb` / `.AppImage`, macOS `.dmg`).
 2. **Mobile App** (Android `.apk`) with touch-friendly layout and responsive styling.
 ---
 
@@ -46,26 +48,9 @@ Available as:
 ---
 
 <a id="supported-routers"></a>
-## Supported Routers & Compatibility Matrix
+## Compatibility (tested only on Huawei B310s-22)
 
 Hmanager Pro is designed to communicate with Huawei HiLink-compatible routers and gateways via the Huawei HiLink XML/REST API protocol. It has been empirically verified and tested on the **Huawei B310s-22** (Hardware Version: `WL1B310FM03`, Firmware / Software Version: `21.318.01.02.314`, Orange Flybox / Open Market).
-
-### Firmware Architecture & How Compatibility Works
-
-Huawei's mobile broadband devices share a unified software and hardware platform family:
-
-* **Firmware Platform (`21.xxx.xx.xx.xx`)**: The `21.` prefix designates Huawei's Linux-based **HiLink** embedded system (as opposed to legacy non-HiLink serial modem `11.x` sticks). Routers running firmware branches like `21.300`, `21.311`, `21.313`, `21.316`, `21.318`, `21.321`, `21.327`, `21.328`, `21.329`, and `21.333` expose the exact same core XML endpoints used by Hmanager Pro:
-  * `/api/webserver/SesTokInfo` & `/api/user/state-login` (CSRF token & session management)
-  * `/api/user/login` (Type 4 SHA-256 and RSA-2048 authentication)
-  * `/api/device/signal` (Live RSRP, RSRQ, SINR, RSSI, Cell ID, PCI)
-  * `/api/monitoring/status` & `/api/monitoring/traffic-statistics` (Connection state, data counters)
-  * `/api/net/net-mode` & `/api/net/net-mode-list` (Carrier band locking & frequency interrogation)
-* **Hardware Board Family (`WL1B310` / `WL1B315`)**: Powered by the HiSilicon Balong V7R11 chipset architecture. Sister models sharing this board revision or related Balong processors share identical command structures.
-* **Carrier Suffix Codes**: The final segment of the software version (e.g. `21.318.01.02.314`) is the operator customization code (e.g. `.314` = Orange / Mobinil, `.372` = STC, `.284` = Airtel, `.59` = Zain, `.00` / `.01` = Generic Open Market, `.74` = Plus Poland). Hmanager Pro works across all operator variants as long as the router runs HiLink firmware.
-
----
-
-### Full Compatibility Matrix
 
 #### 1. Direct Firmware & Hardware Siblings (Balong V7R11 / 21.3xx Platform)
 These models share the exact or near-identical motherboard architecture, baseband processor, and `21.318.xx` / `21.3xx.xx` firmware family as the tested **B310s-22**:
@@ -82,7 +67,7 @@ These models share the exact or near-identical motherboard architecture, baseban
 > [!NOTE]
 > USB dongles (e.g. E3372, E8372) must run in **HiLink mode** (firmware `21.xxx.xx`). Legacy non-HiLink serial "Stick mode" firmware (`11.xxx.xx`) requires AT commands and cannot be queried via HTTP.
 
-#### 2. Advanced LTE-A & Carrier Aggregation Routers (Cat 6 to Cat 19)
+#### 2. Advanced LTE-A & Carrier Aggregation Routers
 These higher-performance desktop gateways run upgraded Balong platforms (Balong 720 / 750 / 765) and WebUI 17+ / 21+ with full support for carrier aggregation (CA / 4G+) locking:
 
 | Model Family | Specific Variants | Category | Supported Features |
@@ -123,19 +108,6 @@ Many major telecommunication providers rebrand Huawei routers under their own co
 
 ---
 
-### Known Incompatible Models
-
-The following devices **cannot** be managed by Hmanager Pro due to incompatible firmware architecture:
-
-| Device Model | Reason for Incompatibility |
-|---|---|
-| **Huawei B593 Series** *(B593u-12, B593s-22, etc.)* | Uses a legacy Linux/VxWorks web server with old CGI endpoints (`/goform/...`). Does not implement the modern `/api/...` HiLink XML endpoints. |
-| **Huawei B2368 Series** *(B2368-22, B2368-66 Outdoor)* | Built on third-party CyberTAN / MediaTek firmware rather than the HiSilicon Balong HiLink stack. |
-| **Huawei B683 / B681 / B970b** | Obsolete 3G gateways with legacy CGI interfaces. |
-| **Modems in Serial "Stick Mode"** | Modems running firmware `11.xxx.xx` operate as virtual serial COM ports and must be cross-flashed to HiLink firmware `21.xxx.xx` to expose HTTP/XML endpoints. |
-
----
-
 ## Getting Started
 
 ```bash
@@ -147,12 +119,11 @@ npm run dev
 ```
 Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
-### Option C: Running the Tauri Desktop App
-
 ```bash
 # Run in development mode with hot-reloading
 npm run tauri:dev
 ```
+This will run the Tauri Desktop App
 
 ---
 
@@ -204,25 +175,6 @@ npm run build:all
 # Collects and creates SHA256 checksums in dist/
 npm run export
 ```
-
----
-
-## Continuous Integration & Automated Releases
-
-Hmanager Pro includes a battle-tested GitHub Actions CI/CD pipeline configured for automated cross-platform builds and releases:
-
-- **Continuous Integration (`.github/workflows/build.yml`)**:
-  - Automatically compiles and verifies **release versions** across all 4 platforms on every Pull Request and push to `main`/`master`:
-    -  **Windows**: `.exe` NSIS setup & `.msi` WiX installer (on `windows-latest`)
-    -  **Linux**: `.deb` package & `.AppImage` standalone binary (on `ubuntu-22.04`)
-    -  **macOS**: `.dmg` Universal disk image supporting both Apple Silicon & Intel (on `macos-latest`)
-    -  **Android**: Production-optimized ARM64 `.apk` (on `ubuntu-latest`)
-
-- **Automated GitHub Releases (`.github/workflows/release.yml`)**:
-  - Automatically triggered whenever a version tag is pushed (e.g. `git tag v1.0.0 && git push origin v1.0.0`) or manually triggered via **GitHub Actions `workflow_dispatch`**.
-  - Compiles release builds across Windows, Linux, macOS, and Android.
-  - Automatically computes cryptographic hashes into `SHA256SUMS.txt`.
-  - Publishes an official GitHub Release with all platform installer files, checksums, and auto-generated changelog notes attached.
 
 ---
 
